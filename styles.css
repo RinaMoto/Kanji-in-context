@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+HK&display=swap');
+
+* {
+    font-family: 'Noto Serif HK', serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    font-size: 1.5em;
+}
+
+#kanjiWord, #examples {
+    text-align: center;
+    color: black;
+}
+
+#kanjiTranslation {
+    text-align: center;
+    display: inline-block;
+    padding: 1rem;
+}
+
+#buttons {
+    text-align: center;
+}
