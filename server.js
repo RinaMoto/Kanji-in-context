@@ -22,7 +22,20 @@ function getArticles() {
         url: "server.php",
         data: {"keyword": keyword},
     }).done(function(msg) {
-        alert(msg);
+        articlesObject = JSON.parse(msg);
+        $('#articles').append('<h1>Articles</h1>');
+        for (i = 0; i < articlesObject.length; i++) {
+            let title = $(`<h2 id="articlesTitle${[i]}"></h2>`).text(articlesObject[i]['title']);
+            let description = $(`<p id="articlesDescription${[i]}"></p>`).text(articlesObject[i]['description']);
+          //  let url = $(`<a id="articlesUrl${[i]}"></a>`).text(articlesObject[i]['url']);
+            $('#articles').append(title, description);
+            $('<a>',{
+                text: 'link',
+                title: articlesObject[i]['url'],
+                href: articlesObject[i]['url'],
+                click: function(){ clickFunc( window.open(articlesObject[i]['url']) ); return false;}
+            }).appendTo('#articles');
+        }
     })
 }
 
