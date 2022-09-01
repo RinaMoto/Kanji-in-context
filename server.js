@@ -2,13 +2,21 @@ $(document).ready(function() {
     getKanji();
     $('#nextBtn').click(function() {
         $('#translateBtn').val("English Translation");
+        $('#hiraganaBtn').val("Hiragana");
+        $('#articles').empty();
         getKanji();
     });
     $('#translateBtn').click(function() {
-        $('#examples p').toggle();
+        $("#examples p[id*='enTranslation']").toggle();
+        $("#kanjiWord #engTranslation").toggle();
+        var btnvalue = $(this).val();
+        $(this).val(btnvalue === "English Translation" ? "Hide English Translation" : "English Translation");
+    });
+    $('#hiraganaBtn').click(function() {
+        $("#examples p[id*='jpTranslation']").toggle();
         $("#kanjiWord #kanjiTranslation").toggle();
         var btnvalue = $(this).val();
-        $(this).val(btnvalue === "English Translation" ? "hide" : "English Translation");
+        $(this).val(btnvalue === "Hiragana" ? "Hide Hiragana Translation" : "Hiragana");
     });
     $('#generateArticlesBtn').click(function() {
         getArticles();
@@ -23,6 +31,7 @@ function getArticles() {
         data: {"keyword": keyword},
     }).done(function(msg) {
         articlesObject = JSON.parse(msg);
+        console.log(articlesObject);
         $('#articles').append('<h1>Articles</h1>');
         for (i = 0; i < articlesObject.length; i++) {
             let title = $(`<h2 id="articlesTitle${[i]}"></h2>`).text(articlesObject[i]['title']);
@@ -59,12 +68,14 @@ function getKanji() {
 
         $('#kanjiWord').append("<div id='kanjiTranslation'></div");
         $("#kanjiWord #kanjiTranslation").append(hiragana);
+        $("#kanjiWord #kanjiTranslation").hide();
 
+        $('#kanjiWord').append("<div id='engTranslation'></div");
         for (let j = 0; j < kanjiObject['kanjiMeaning'].length; j++) {
             let meanings = $(`<p id="meaning${[j]}"></p>`).text(kanjiObject['kanjiMeaning'][j]);
-            $("#kanjiWord #kanjiTranslation").append(meanings);
+            $("#kanjiWord #engTranslation").append(meanings);
         }
-        $("#kanjiWord #kanjiTranslation").hide();
+        $("#kanjiWord #engTranslation").hide();
 
         for (let i = 0; i < kanjiObject['exSentence'].length; i++) {
             

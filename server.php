@@ -15,7 +15,7 @@
         }
 
         function getHiragana($kanji) {
-            $apiID = "43e25d41aa196cdf7023da13fbe57516a9dcc905c9d0e8bcb92a8108b0e79e51";
+            $apiID = "xxx";
             $url = "https://labs.goo.ne.jp/api/hiragana";
             $data = array("app_id"=> $apiID, "sentence" => (string)$kanji, "output_type" => "hiragana");
             $data = http_build_query($data);
@@ -115,8 +115,9 @@
             public $description;
         }
 
-        $apikey = '219ee9bfb35542ea81c4ecf07ea1de85';
+        $apikey = 'xxx';
         $data = array(
+            "language" => "jp",
             "q" => (string)$_POST['keyword'],
             "apiKey" => (string)$apikey
         );
@@ -126,8 +127,8 @@
         $apiUrl = 'https://newsapi.org/v2/everything?' . $params;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL,$apiUrl);
-        curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+        curl_setopt($ch, CURLOPT_URL, $apiUrl);
+        curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
         $articles = curl_exec($ch);
         curl_close($ch);
         $articlesObj = json_decode($articles)->articles;
