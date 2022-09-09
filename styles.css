@@ -1,15 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+HK&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500&display=swap');
 
 * {
-    font-family: 'Noto Serif HK', serif;
+    font-family: 'Noto Serif JP', serif;
 }
 
 h1 {
     text-align: center;
 }
 
-p {
+body {
+    background-color: #DADDD8;
+}
+
+#exampleLabel {
+    padding-top: 1.5rem;
+}
+
+p, h2 {
     font-size: 1.0em;
+}
+
+a {
+    background-color: #B3001B;
+    border-radius: 5px;
+    color: white;
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.0em;
+}
+
+#content {
+    background-color: #FAFAFF;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 60%;
+    border-radius: 5px;
+    margin: auto;
+    padding: 10px;
+    margin-top: 1rem;
+    text-align: center;
 }
 
 #kanjiWord, #examples {
@@ -17,12 +46,46 @@ p {
     color: black;
 }
 
-#kanjiTranslation {
+#articles {
     text-align: center;
-    display: inline-block;
-    padding: 1rem;
 }
 
 #buttons {
+    margin-top: 1rem;
     text-align: center;
+}
+
+input {
+    padding: 0.5em;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+}
+
+input:hover {
+    cursor: pointer;
+}
+
+input#nextBtn {
+    background-color: #A6D8BD;
+}
+
+input#nextBtn:hover {
+    background-color: #B6ECCF;
+}
+
+input#hiraganaBtn, input#translateBtn, input#generateArticlesBtn {
+    background-color: #7DC3F8;
+}
+
+input#hiraganaBtn:hover, input#translateBtn:hover, input#generateArticlesBtn:hover {
+    background-color: #94CDF8;
+}
+
+#articles {
+    margin-bottom: 3rem;
+}
+
+#articles > h2 {
+    margin-top: 2rem;
 }

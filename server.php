@@ -121,8 +121,6 @@
             "q" => (string)$_POST['keyword'],
             "apiKey" => (string)$apikey
         );
-        // $allarticles = $newsapi->getEverything(urlencode((string)$data));
-        // var_dump($allarticles);
         $params = http_build_query($data, '', '&');
         $apiUrl = 'https://newsapi.org/v2/everything?' . $params;
         $ch = curl_init();
@@ -131,15 +129,27 @@
         curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
         $articles = curl_exec($ch);
         curl_close($ch);
-        $articlesObj = json_decode($articles)->articles;
-        $articlesList = array();
-        for ($i = 0; $i < 3; $i++) {
-            $articlesClass = new articles();
-            $articlesClass->title = $articlesObj[$i]->title;
-            $articlesClass->url = $articlesObj[$i]->url;
-            $articlesClass->description = $articlesObj[$i]->description;
-            $articlesList[$i] = $articlesClass;
+        if (isset(json_decode($articles)->articles)) {
+            $articlesObj = json_decode($articles)->articles;
+            $articlesList = array();
+            for ($i = 0; $i < 3; $i++) {
+                $articlesClass = new articles();
+                if (isset($articlesObj[$i])) {
+                    $articlesClass->title = $articlesObj[$i]->title;
+                    $articlesClass->url = $articlesObj[$i]->url;
+                    $articlesClass->description = $articlesObj[$i]->description;
+                    $articlesList[$i] = $articlesClass;
+                }
+            }
+            if (count($articlesList) === 0) {
+                echo 0;
+            }
+            else {
+                echo json_encode($articlesList);
+            }
         }
-        echo json_encode($articlesList);
+        else {
+            echo 0;
+        }
     }
 ?>
