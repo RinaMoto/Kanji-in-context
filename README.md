@@ -8,3 +8,5 @@
 |PHP|
 |JavaScript + JQuery|
 |CSS|
+
+![Preview Photo](https://user-images.githubusercontent.com/75461311/208357815-4d32aa37-d6d5-4a51-a644-5e81ed9c78fb.png)
