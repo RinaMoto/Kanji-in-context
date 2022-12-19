@@ -46,9 +46,14 @@ a {
     color: black;
 }
 
-#articles {
-    text-align: center;
+#kanjiTranslation, p[id^="jpTranslation"] {
+    color: green;
 }
+
+#engTranslation, p[id^="enTranslation"] {
+    color: #004E89;
+}
+
 
 #buttons {
     margin-top: 1rem;
@@ -84,6 +89,15 @@ input#hiraganaBtn:hover, input#translateBtn:hover, input#generateArticlesBtn:hov
 
 #articles {
     margin-bottom: 3rem;
+    text-align: center;
+}
+
+div[id^="articleCard"] {
+    background-color: #FAFAFF;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    margin: 1em 15em;
+    padding: 2rem;
 }
 
 #articles > h2 {

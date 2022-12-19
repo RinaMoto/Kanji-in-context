@@ -1,4 +1,9 @@
 <?php
+    require 'vendor/autoload.php';
+
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
     if (isset($_POST['getExamples'])) {  
         header("Access-Control-Allow-Origin: http://[cross.domain]");
         header("Access-Control-Allow-Headers: access");
@@ -15,7 +20,9 @@
         }
 
         function getHiragana($kanji) {
-            $apiID = "xxx";
+            // call gooLabs API and get hiragana translation
+            $gooLabsAPI = $_ENV['GOOLABSAPI'];
+            $apiID = $gooLabsAPI;
             $url = "https://labs.goo.ne.jp/api/hiragana";
             $data = array("app_id"=> $apiID, "sentence" => (string)$kanji, "output_type" => "hiragana");
             $data = http_build_query($data);
@@ -115,7 +122,9 @@
             public $description;
         }
 
-        $apikey = 'xxx';
+        // call news API with the kanji as a keyword parameter and fetch 3 example articles 
+        $newsAPI = $_ENV['NEWSAPI'];
+        $apikey = $newsAPI;
         $data = array(
             "language" => "jp",
             "q" => (string)$_POST['keyword'],

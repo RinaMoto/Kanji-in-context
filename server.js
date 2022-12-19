@@ -29,6 +29,7 @@ $(document).ready(function() {
 })
 
 function getArticles() {
+    // fetch articles related to kanji word
     let keyword = $('#kanjiWord #kanji').text();
     $.ajax({
         type: "POST",
@@ -36,24 +37,26 @@ function getArticles() {
         data: {"keyword": keyword},
     }).done(function(msg) {
         articlesObject = JSON.parse(msg);
-        console.log(articlesObject);
         if (articlesObject === 0) {
             $('#articles').append('<h2>Could not generate articles</h2>');
             $('#articles').fadeIn();
         }
         else {
             $('#articles').append('<h1>Articles</h1>');
+            // iterate through the articles and construct cards with article title, description, and link to display 
             for (i = 0; i < articlesObject.length; i++) {
+                let articleCard = `<div id='articleCard-${[i]}'>`
+                $('#articles').append(articleCard);
                 let title = $(`<h2 id="articlesTitle${[i]}"></h2>`).text("Title: " + articlesObject[i]['title']);
                 let description = $(`<p id="articlesDescription${[i]}"></p>`).text("Description: " + articlesObject[i]['description']);
-                $('#articles').append(title, description);
+                $(`#articleCard-${[i]}`).append( title, description);
                 $('<a>',{
                     text: 'link',
                     title: articlesObject[i]['url'],
                     href: articlesObject[i]['url'],
                     target: '_blank',
                     click: function(){ window.open(articlesObject[i]['url']); return false;}
-                }).appendTo('#articles');
+                }).appendTo(`#articleCard-${[i]}`);
                 $('#articles').fadeIn();
             }
         }
@@ -61,10 +64,13 @@ function getArticles() {
 }
 
 function getKanji() {
+    // disable buttons while loading kanjis
     $('#nextBtn').prop('disabled', true);
     $('#translateBtn').prop('disabled', true);
     $('#hiraganaBtn').prop('disabled', true);
     $('#generateArticlesBtn').prop('disabled', true);
+    
+    // get kanji keyword wtih example articles along with its hiragana translations and english translations
     $.ajax({
         type: "POST",
         url: "server.php",
@@ -87,6 +93,7 @@ function getKanji() {
         $("#kanjiWord #kanjiTranslation").append(hiragana);
         $("#kanjiWord #kanjiTranslation").hide();
 
+        // iterate through the kanji english translation and append to the kanji card
         $('#kanjiWord').append("<div id='engTranslation'></div");
         for (let j = 0; j < kanjiObject['kanjiMeaning'].length; j++) {
             let meanings = $(`<p id="meaning${[j]}"></p>`).text(kanjiObject['kanjiMeaning'][j]);
@@ -94,6 +101,7 @@ function getKanji() {
         }
         $("#kanjiWord #engTranslation").hide();
 
+        // iterate through the example sentences along with its japanese and english translations and append to the kanji card
         for (let i = 0; i < kanjiObject['exSentence'].length; i++) {          
             let sentence = `<h2 id="sentence${[i]}">` + kanjiObject['exSentence'][i] + '</h2>';
             let jpTranslation = `<p id="jpTranslation${[i]}">` + kanjiObject['jpSentTranslation'][i] + '</p>';
@@ -105,6 +113,8 @@ function getKanji() {
             $(`#examples #jpTranslation${[i]}`).hide();
             $(`#examples #enTranslation${[i]}`).hide();
         }
+
+        // enable all buttons
         $('#nextBtn').prop('disabled', false);
         $('#translateBtn').prop('disabled', false);
         $('#hiraganaBtn').prop('disabled', false);
